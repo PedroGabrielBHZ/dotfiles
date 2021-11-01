@@ -18,6 +18,9 @@ set clipboard=unnamed,unnamedplus  " Copy into system (*, +) registers.
 " So pleasing.
 noremap ; :
 
+" Beautiful. Avoids running out for the <Esc> key.
+inoremap jj <Esc>
+
 " Navigate windows with <Ctrl-hjkl> instead of <Ctrl-w> followed by hjkl.
 noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
@@ -30,11 +33,11 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Install vim-plug if it's not already installed. 
-if empty(glob('~/.vim/autoload/plug.vim')) 
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
-				\ https://raw.github.com/junegunn/vim-plug/master/plug.vim 
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC 
+" Install vim-plug if it's not already installed.
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.github.com/junegunn/vim-plug/master/plug.vim 
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
@@ -45,9 +48,6 @@ Plug 'pangloss/vim-javascript'
 call plug#end()
 
 set background=dark
-set grepprg=grep\ -nH\ $*
 
 colorscheme palenight
-let g:tex_flavor = "latex"
 let g:python_highlight_all = 1
-
