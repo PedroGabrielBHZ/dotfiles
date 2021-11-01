@@ -14,12 +14,16 @@ set wildmode=list:longest,full  " Complete till longest string, then open menu.
 set hlsearch                    " Highlight search results.
 set incsearch                   " Search as you type.
 set clipboard=unnamed,unnamedplus  " Copy into system (*, +) registers.
+set colorcolumn=80
 
 " So pleasing.
 noremap ; :
 
 " Beautiful. Avoids running out for the <Esc> key.
 inoremap jj <Esc>
+
+" Remap leader key
+let mapleader = ","
 
 " Navigate windows with <Ctrl-hjkl> instead of <Ctrl-w> followed by hjkl.
 noremap <c-h> <c-w><c-h>
@@ -45,6 +49,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'vim-python/python-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'pangloss/vim-javascript'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 set background=dark
