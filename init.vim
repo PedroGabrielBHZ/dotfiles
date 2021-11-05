@@ -81,6 +81,9 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " My theme
 Plug 'morhetz/gruvbox'
 
+" This gives me those sexy bars under my screen with all kinds of info.
+Plug 'nvim-lualine/lualine.nvim'
+
 " This plugin allows me to use fzf, Ag or ripgrep to grep inside files
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -114,7 +117,16 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Status line configurations
+lua << END
+require'lualine'.setup()
+END
+
 " NERDTree mapping toggle with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
+
+" Opens NERDTree if no file was specified on launch
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 colorscheme gruvbox
