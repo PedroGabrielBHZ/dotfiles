@@ -3,17 +3,19 @@ filetype plugin indent on  " What the fuck is this?
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Install vim-plug if it's not already installed.
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                \ https://raw.github.com/junegunn/vim-plug/master/plug.vim 
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" This automatically installs the vim-plug plugin manager if
+" it is not already installed.
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Some basics
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Respect indentation when starting a new line.
 set autoindent             
 
@@ -78,25 +80,44 @@ call plug#begin()
 " Python syntaxer
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
-" My theme
-Plug 'morhetz/gruvbox'
+" These are all plugins used for better syntax highlighting
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'othree/html5.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'jparise/vim-graphql'
+Plug 'elzr/vim-json'
+Plug 'neoclide/jsonc.vim'
+Plug 'cespare/vim-toml'
+Plug 'evanleck/vim-svelte'
 
-" This gives me those sexy bars under my screen with all kinds of info.
-Plug 'nvim-lualine/lualine.nvim'
+" A theme
+Plug 'morhetz/gruvbox'
 
 " This plugin allows me to use fzf, Ag or ripgrep to grep inside files
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" This substitutes the standard vim directory browser with a better and more
-" responsive alternative. 
-" I also binded it to toggle with <C-n> for faster browsing.
+" Files browsing
 Plug 'scrooloose/nerdtree'
+
+" This adds a preview server to nvim for markdown files
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 " Use coc as language server client
 let g:coc_global_extensions = [
+      \'coc-actions',
+      \'coc-clangd',
+      \'coc-cmake',
+      \'coc-coverage',
+      \'coc-css',
+      \'coc-eslint',
       \'coc-git',
+      \'coc-html',
+      \'coc-prettier', 
       \'coc-pyright',
+      \'coc-svelte',
+      \'coc-tsserver',
       \'coc-vimlsp', 
       \'coc-xml',
       \'coc-yaml',
@@ -117,11 +138,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Status line configurations
-lua << END
-require'lualine'.setup()
-END
-
 " NERDTree mapping toggle with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 
@@ -129,4 +145,5 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+" Theme incantation
 colorscheme gruvbox
